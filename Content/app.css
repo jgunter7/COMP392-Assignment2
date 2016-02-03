@@ -1,0 +1,16 @@
+/*
+<!-- Comments Here
+Author:             Jason Gunter
+Last Modified By:   Jason Gunter @ Feb 3rd, 2016
+Description:        Create Solar system
+Revision History:   https://github.com/jgunter7/COMP392-Assignment2/commits/master
+-->
+*/
+body{
+    /* set margin to 0 and overflow to hidden, to use the complete page */
+    margin: 0;
+    overflow: hidden;
+}
+h3 {
+    text-align: center;
+}
