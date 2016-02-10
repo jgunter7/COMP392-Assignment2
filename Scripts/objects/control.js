@@ -5,6 +5,16 @@ var objects;
         function Control() {
             //init variable values
         }
+        Control.prototype.SunView = function () {
+            camera.position.set(50, 50, 50);
+            camera.lookAt(earth.position);
+        };
+        Control.prototype.TopView = function () {
+            camera.position.y = 500;
+            camera.position.x = 0;
+            camera.position.z = 0;
+            camera.lookAt(sun.position);
+        };
         Control.prototype.zoomIn = function () {
             camera.position.set(-200, 200, 200);
             camera.lookAt(scene.position);

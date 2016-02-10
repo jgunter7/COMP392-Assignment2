@@ -95,6 +95,8 @@ function onResize():void {
 
 
 function addControl(controlObject: Control):void {
+    gui.add(controlObject, 'TopView');
+    gui.add(controlObject, 'SunView');
     gui.add(controlObject, 'zoomIn');
     gui.add(controlObject, 'zoomCenter');
 	gui.add(controlObject, 'zoomOut');
@@ -254,15 +256,15 @@ function AddMyPlanets() {
     // add orbiting asteroids!!!!
     asteroidPivot = new THREE.Object3D();
     asteroidPivot.position = sun.position;
-    asteroids = new Array(40);
+    asteroids = new Array(80);
     for (var i = 0; i < asteroids.length; i ++) {
         asteroids[i] = new THREE.Mesh(
             new THREE.DodecahedronGeometry(2,0),
             new LambertMaterial({color:0x2f4f4f})
         );
         var rnX = (-1) * getRandomInt(575, 625);
-        var rnY = getRandomInt(-30,30);
-        var rnZ = getRandomInt(-20,20);
+        var rnY = getRandomInt(-50,50);
+        var rnZ = getRandomInt(-30,30);
         asteroids[i].position.set(rnX,rnY,rnZ);
         asteroidPivot.add(asteroids[i]);
     }

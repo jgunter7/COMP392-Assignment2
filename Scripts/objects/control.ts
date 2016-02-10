@@ -5,6 +5,18 @@ module objects {
             //init variable values
 		}
         
+        public SunView() : void {
+            camera.position.set(50,50,50);
+            camera.lookAt(earth.position);
+        }
+        
+        public TopView() : void {
+            camera.position.y = 500;
+            camera.position.x = 0;
+            camera.position.z = 0;
+            camera.lookAt(sun.position);
+        }
+        
         public zoomIn() : void {
             camera.position.set(-200,200,200);
             camera.lookAt(scene.position);
