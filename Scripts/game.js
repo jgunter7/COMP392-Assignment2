@@ -42,6 +42,10 @@ var jgpPivot;
 var saturn;
 var saturnPivot;
 var stars;
+var pluto;
+var plutoPivot;
+var asteroids;
+var asteroidPivot;
 function init() {
     // Instantiate a new Scene object
     scene = new Scene();
@@ -97,6 +101,8 @@ function gameLoop() {
     jgpPivot.rotation.y += 0.03;
     saturnPivot.rotation.y += 0.005;
     saturn.rotation.y += 0.3;
+    plutoPivot.rotation.y += 0.008;
+    asteroidPivot.rotation.y += 0.0105;
     // render using requestAnimationFrame
     requestAnimationFrame(gameLoop);
     // render the scene
@@ -144,7 +150,7 @@ function AddMyPlanets() {
     moonPivot.position = moon.position; //orbit around the earth..jgunter
     earth.add(moonPivot);
     moonPivot.add(moon);
-    mars = new THREE.Mesh(new THREE.SphereGeometry(4, 40, 40), new THREE.MeshPhongMaterial({
+    mars = new THREE.Mesh(new THREE.SphereGeometry(6, 40, 40), new THREE.MeshPhongMaterial({
         map: THREE.ImageUtils.loadTexture('Content/Images/mars.jpg')
     }));
     mars.castShadow = true;
@@ -187,5 +193,35 @@ function AddMyPlanets() {
         stars[i].position.set(rnX, rnY, rnZ);
         scene.add(stars[i]);
     }
+    // add orbiting asteroids!!!!
+    asteroidPivot = new THREE.Object3D();
+    asteroidPivot.position = sun.position;
+    asteroids = new Array(40);
+    for (var i = 0; i < asteroids.length; i++) {
+        asteroids[i] = new THREE.Mesh(new THREE.DodecahedronGeometry(2, 0), new LambertMaterial({ color: 0x2f4f4f }));
+        var rnX = (-1) * getRandomInt(575, 625);
+        var rnY = getRandomInt(-30, 30);
+        var rnZ = getRandomInt(-20, 20);
+        asteroids[i].position.set(rnX, rnY, rnZ);
+        asteroidPivot.add(asteroids[i]);
+    }
+    sun.add(asteroidPivot);
+    // That 9th planet is REAL :) 
+    pluto = new THREE.Mesh(new THREE.SphereGeometry(5, 40, 40), new THREE.MeshPhongMaterial({
+        map: THREE.ImageUtils.loadTexture('Content/Images/pluto.jpg')
+    }));
+    pluto.castShadow = true;
+    pluto.receiveShadow = true;
+    pluto.position.set(0, 0, 405);
+    pluto.rotation.z = 3.16;
+    plutoPivot = new THREE.Object3D();
+    plutoPivot.position = sun.position;
+    plutoPivot.rotation.x = 50;
+    sun.add(plutoPivot);
+    plutoPivot.add(pluto);
+}
+//this is stolen sir
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 //# sourceMappingURL=game.js.map
