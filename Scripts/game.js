@@ -84,6 +84,7 @@ function addControl(controlObject) {
     gui.add(controlObject, 'zoomIn');
     gui.add(controlObject, 'zoomCenter');
     gui.add(controlObject, 'zoomOut');
+    gui.add(controlObject, "followEarth");
 }
 function addStatsObject() {
     stats = new Stats();
@@ -105,6 +106,18 @@ function gameLoop() {
     saturn.rotation.y += 0.3;
     plutoPivot.rotation.y += 0.008;
     asteroidPivot.rotation.y += 0.0105;
+    if (control.fEarth) {
+        // if the user has elected to follow the earth & moon
+        // we should probably follow that planet with the camera
+        // it will probably look pretty cool too :) - jgunter
+        var ep = earth.position; //Earth Position (ep)
+        camera.position.set(ep.x + 100, ep.y + 100, ep.z + 150);
+        camera.lookAt(earth.position);
+        earthPivot.add(camera);
+    }
+    else {
+        earthPivot.remove(camera);
+    }
     // render using requestAnimationFrame
     requestAnimationFrame(gameLoop);
     // render the scene
@@ -186,12 +199,12 @@ function AddMyPlanets() {
     sun.add(saturnPivot);
     saturnPivot.add(saturn);
     //add several stars here;
-    stars = new Array(400);
+    stars = new Array(700);
     for (var i = 0; i < stars.length; i++) {
         stars[i] = new THREE.Mesh(new THREE.SphereGeometry(0.2, 10, 10), new LambertMaterial({ color: 0xffffff }));
-        var rnX = (-1) * Math.floor((Math.random() * 800) + 1);
-        var rnY = Math.floor((Math.random() * 800) + 1);
-        var rnZ = Math.floor((Math.random() * 800) + 1);
+        var rnX = getRandomInt(-800, 800);
+        var rnY = getRandomInt(-800, 800);
+        var rnZ = getRandomInt(-800, 800);
         stars[i].position.set(rnX, rnY, rnZ);
         scene.add(stars[i]);
     }
